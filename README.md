@@ -74,3 +74,11 @@ It will show tasks that you can run with Nx.
 - [Join the community](https://nx.dev/community)
 - [Subscribe to the Nx Youtube Channel](https://www.youtube.com/@nxdevtools)
 - [Follow us on Twitter](https://twitter.com/nxdevtools)
+
+# Generating node apps
+
+`npx nx generate @nx/node:app <app_name> --directory=apps/<app_name>`
+
+# Generating js library
+
+`npx nx generate @nx/js:library <lib_name> --directory=libs/<lib_name> --publishable --importPath=@charlinho/<lib_name>`
