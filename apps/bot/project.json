@@ -41,6 +41,7 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
+        "runBuildTargetDependencies": true,
         "buildTarget": "bot:build"
       },
       "configurations": {

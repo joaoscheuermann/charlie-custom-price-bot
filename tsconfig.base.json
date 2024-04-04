@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@charlinho/api": ["libs/api/src/index.ts"],
+      "@charlinho/slash": ["libs/slash/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
