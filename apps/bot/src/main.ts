@@ -482,32 +482,34 @@ slash.command(
     const timer = setInterval(async () => {
       const payment = await api.payment.check(creationData.order_id);
 
-      if (payment.status === 200) {
-        const {
-          data: [paymentData],
-        } = await payment.json();
+      if (payment.status !== 200) {
+        return;
+      }
 
-        if (paymentData.IsPaid && !paymentData.is_expired) {
-          clearInterval(timer);
+      const { data: payments } = await payment.json();
 
-          await message.edit({
-            embeds: [paymentSuccessEmbed],
-          });
+      const [paymentData] = payments;
 
-          await interaction.editReply({
-            embeds: [paymentSuccessEmbed],
-          });
-        } else if (paymentData.is_expired) {
-          clearInterval(timer);
+      if (paymentData.IsPaid && !paymentData.is_expired) {
+        clearInterval(timer);
 
-          await message.edit({
-            embeds: [paymentExpiredEmbed],
-          });
+        await message.edit({
+          embeds: [paymentSuccessEmbed],
+        });
 
-          await interaction.editReply({
-            embeds: [paymentExpiredEmbed],
-          });
-        }
+        await interaction.editReply({
+          embeds: [paymentSuccessEmbed],
+        });
+      } else if (paymentData.is_expired) {
+        clearInterval(timer);
+
+        await message.edit({
+          embeds: [paymentExpiredEmbed],
+        });
+
+        await interaction.editReply({
+          embeds: [paymentExpiredEmbed],
+        });
       }
     }, 15000);
   }
