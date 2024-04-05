@@ -1,7 +1,7 @@
 import {
   GetBuildingsAvailabilityBody,
   GetBuildingsAvailabilityResponse,
-} from '../../types/index';
+} from '../types/index';
 
 interface JsonResponse<T> extends Response {
   json(): Promise<T>;
