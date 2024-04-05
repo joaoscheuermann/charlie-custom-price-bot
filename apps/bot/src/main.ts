@@ -375,10 +375,6 @@ slash.command(
     const { data: creationData } = await creation.json();
     const { data: simulationData } = await simulation.json();
 
-    const humanReadableExpiration = moment(
-      creationData.qr_expiry.date
-    ).fromNow();
-
     const totalPrice = simulationData.TotalPrice / 100;
     const originalPrice = simulationData.OriginalPrice / 100;
     const discount = ((originalPrice - totalPrice) * 100) / originalPrice;
@@ -389,7 +385,7 @@ slash.command(
       )
       .setURL(`https://www.staycharlie.com.br/tr/${creationData.order_id}`)
       .setDescription(
-        `Agora é só pagar o QR code a baixo para confirmar sua reserva, ele expira em: ${humanReadableExpiration}`
+        `Agora é só pagar o QR code a baixo para confirmar sua reserva, ele expira em uma hora!`
       )
       .addFields(
         {
@@ -398,7 +394,7 @@ slash.command(
         },
         {
           name: 'PIX Copia e cola',
-          value: creationData.qr_code,
+          value: `\`${creationData.qr_code}\``,
         },
         {
           name: 'Valor Total',
