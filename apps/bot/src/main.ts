@@ -33,7 +33,9 @@ slash.command(
   async () =>
     new SlashCommandBuilder()
       .setName('reserva')
-      .setDescription('Charlinho vai te chamar pra trocar uma ideia!')
+      .setDescription(
+        'Charlinho vai iniciar o processo de reserva com as informações enviadas!'
+      )
       .addStringOption((option) =>
         option
           .setName('url')
