@@ -381,6 +381,18 @@ slash.command(
     const originalPrice = simulationData.OriginalPrice / 100;
     const discount = ((originalPrice - totalPrice) * 100) / originalPrice;
 
+    const formatedTotalPrice = totalPrice.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
+    const formatedOriginalPrice = originalPrice.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
+    const formatedDiscount = discount.toFixed(2) + ' %';
+
     const paymentPendingEmbed = new EmbedBuilder()
       .setTitle(
         `Reserva ${creationData.external_id} do quarto ${simulationData.RoomType.type} no ${simulationData.RoomType.property.name} em ${simulationData.RoomType.property.city} foi solicitada!`
@@ -400,23 +412,17 @@ slash.command(
         },
         {
           name: 'Valor Total',
-          value: totalPrice.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }),
+          value: formatedTotalPrice,
           inline: true,
         },
         {
           name: 'Valor Original',
-          value: originalPrice.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }),
+          value: formatedOriginalPrice,
           inline: true,
         },
         {
           name: 'Desconto',
-          value: `${discount} %`,
+          value: formatedDiscount,
           inline: true,
         },
         {
@@ -445,23 +451,37 @@ slash.command(
       )
       .addFields(
         {
+          name: 'Código da reserva',
+          value: creationData.external_id,
+        },
+        {
+          name: 'PIX Copia e cola',
+          value: `\`${creationData.qr_code}\``,
+        },
+        {
           name: 'Valor Total',
-          value: `R$ ${simulationData.TotalPrice}`,
+          value: formatedTotalPrice,
           inline: true,
         },
         {
           name: 'Valor Original',
-          value: `R$ ${simulationData.OriginalPrice}`,
+          value: formatedOriginalPrice,
           inline: true,
         },
         {
           name: 'Desconto',
-          value: `R$ ${discount}`,
+          value: formatedDiscount,
           inline: true,
         },
         {
-          name: 'Reserva',
-          value: creationData.external_id,
+          name: 'Checkin',
+          value: moment(start_date).format('DD/MM/YYYY') + ' 15:00',
+          inline: true,
+        },
+        {
+          name: 'Checkout',
+          value: moment(end_date).format('DD/MM/YYYY') + ' 11:00',
+          inline: true,
         }
       )
       .setColor(Colors.Green);
