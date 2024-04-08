@@ -75,13 +75,6 @@ slash.command(
       )
       .addStringOption((option) =>
         option
-          .setName('country')
-          .setDescription('your country')
-          .setChoices({ name: 'Brazil', value: 'BR' })
-          .setRequired(true)
-      )
-      .addStringOption((option) =>
-        option
           .setName('value')
           .setDescription('value you want to pay (R$)')
           .setRequired(true)
@@ -133,7 +126,6 @@ slash.command(
     const inputPhone = interaction.options.get('phone');
     const inputBirthday = interaction.options.get('birthday');
     const inputDocument = interaction.options.get('document');
-    const inputCountry = interaction.options.get('country');
     const inputValue = interaction.options.get('value');
 
     const url = new URL(inputUrl.value as string);
@@ -198,7 +190,7 @@ slash.command(
       return;
     }
 
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(inputBirthday.value as string)) {
+    if (!/^\d{8}$/.test(inputBirthday.value as string)) {
       await interaction.editReply({
         content: 'Data de nascimento inválida!',
         embeds: [],
@@ -314,11 +306,11 @@ slash.command(
       surname: inputLastName.value as string,
       email: inputEmail.value as string,
       cpfnumber: inputDocument.value as string,
-      birthdate: moment(inputBirthday.value as string, 'DD/MM/YYYY').format(
+      birthdate: moment(inputBirthday.value as string, 'DDMMYYYY').format(
         'YYYY-MM-DD'
       ),
       cellphone: inputPhone.value as string,
-      country: inputCountry.value as string,
+      country: 'BR',
       roomtype_id: room.room_type_id,
       start_date,
       end_date,
