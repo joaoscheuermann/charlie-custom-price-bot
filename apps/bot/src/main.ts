@@ -333,7 +333,7 @@ slash.command(
       addressState: '',
       pre_booking_code: null,
       referral: 'site',
-      campaign: 'communism',
+      campaign: '',
     };
 
     const simulation = await api.payment.simulate(paymentPayload);
