@@ -446,10 +446,6 @@ slash.command(
           value: creationData.external_id,
         },
         {
-          name: 'PIX Copia e cola',
-          value: `\`${creationData.qr_code}\``,
-        },
-        {
           name: 'Valor Total',
           value: formatedTotalPrice,
           inline: true,
