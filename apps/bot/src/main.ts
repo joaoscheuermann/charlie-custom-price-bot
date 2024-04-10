@@ -100,7 +100,6 @@ slash.command(
       'phone',
       'birthday',
       'document',
-      'country',
       'value',
     ];
 
