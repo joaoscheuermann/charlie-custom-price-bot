@@ -78,6 +78,15 @@ slash.command(
           .setName('value')
           .setDescription('value you want to pay (R$)')
           .setRequired(true)
+      )
+      .addBooleanOption((option) =>
+        option
+          .setName('cleaning_fee')
+          .setDescription('has cleaning fee')
+          .setRequired(false)
+      )
+      .addBooleanOption((option) =>
+        option.setName('debug').setDescription('debug mode').setRequired(false)
       ),
 
   async (interaction: CommandInteraction) => {
@@ -126,6 +135,7 @@ slash.command(
     const inputBirthday = interaction.options.get('birthday');
     const inputDocument = interaction.options.get('document');
     const inputValue = interaction.options.get('value');
+    const inputCleaningFee = interaction.options.get('cleaning_fee');
 
     const url = new URL(inputUrl.value as string);
 
@@ -317,7 +327,7 @@ slash.command(
       guests,
       coupon_code: '',
       custom_price: parseFloat(inputValue.value as string) * 100,
-      has_cleaning_fee: false,
+      has_cleaning_fee: inputCleaningFee.value ? true : false,
       cardName: '',
       cardNumber: '',
       cardSecurityCode: '',
