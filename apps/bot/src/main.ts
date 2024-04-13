@@ -327,7 +327,9 @@ slash.command(
       guests,
       coupon_code: '',
       custom_price: parseFloat(inputValue.value as string) * 100,
-      has_cleaning_fee: inputCleaningFee.value ? true : false,
+      has_cleaning_fee: inputCleaningFee
+        ? (inputCleaningFee.value as boolean)
+        : false,
       cardName: '',
       cardNumber: '',
       cardSecurityCode: '',
